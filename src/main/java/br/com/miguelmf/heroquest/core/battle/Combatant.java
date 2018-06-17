@@ -1,7 +1,5 @@
 package br.com.miguelmf.heroquest.core.battle;
 
-import java.util.Random;
-
 import br.com.miguelmf.heroquest.core.hero.Hero;
 
 class Combatant {
