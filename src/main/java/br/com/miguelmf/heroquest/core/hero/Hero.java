@@ -2,24 +2,57 @@ package br.com.miguelmf.heroquest.core.hero;
 
 import java.util.Collection;
 
-public class Hero {
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
+import br.com.miguelmf.validator.ValidatedEntity;
+
+public class Hero extends ValidatedEntity {
+
+    @NotBlank
+    @Min(value = 3, message = "Name should be at least 3 characters long")
     private final String name;
+
+    @NotNull(message = "Strength should not be null")
+    @Min(value = 6, message = "Strength should be at least 6")
     private final int strength;
+
+    @NotNull(message = "Dexterity should not be null")
+    @Min(value = 6, message = "Dexterity should be at least 6")
     private final int dexterity;
+
+    @NotNull(message = "Intelligence should not be null")
+    @Min(value = 6, message = "Intelligente should be at least 6")
     private final int intelligence;
+
+    @NotNull(message = "Vitality should not be null")
+    @Min(value = 6, message = "Vitality should be at least 6")
     private final int vitality;
+
+    @NotNull(message = "HP should not be null")
     private final int hp;
+
+    @NotNull(message = "MaxHP should not be null")
+    @Min(value = 12, message = "HP should be at least 12")
     private final int maxHp;
+
+    @NotNull(message = "Type should not be null")
     private final HeroType type;
+
+    @NotNull(message = "Actions should not be null")
+    @Size(min = 1, message = "Actions length should be at least 1")
     private final Collection<Action> actions;
+
+    @NotNull(message="Selector should not be null")
     private final Selector selector;
 
     private Hero(String name, int hp, int maxHp, int strength, int intelligence, int dexterity, int vitality,
             Collection<Action> actions, HeroType type, Selector selector) {
-        this.name = validateName(name);
+        this.name = name;
         this.strength = strength;
-        this.dexterity = validateDexterity(dexterity);
+        this.dexterity = dexterity;
         this.intelligence = intelligence;
         this.vitality = vitality;
         this.hp = hp;
@@ -27,6 +60,7 @@ public class Hero {
         this.type = type;
         this.actions = actions;
         this.selector = selector;
+        validate();
     }
 
     public static Hero of(String name, int hp, int maxHp, int strength, int intelligence, int dexterity, int vitality,
@@ -39,22 +73,6 @@ public class Hero {
     }
 
     public int getDexterity() {
-        return dexterity;
-    }
-
-    private String validateName(String name) {
-        if (name.equals("") || name == null) {
-            throw new IllegalArgumentException("A Hero's name should be blank or null!");
-        }
-
-        return name;
-    }
-
-    private int validateDexterity(int dexterity) {
-        if (dexterity == 0) {
-            throw new IllegalArgumentException("A Hero's dexterity should be greater than zero");
-        }
-
         return dexterity;
     }
 
@@ -127,8 +145,7 @@ public class Hero {
         }
 
         public Hero build() {
-            return Hero.of(name, hp, maxHp, strength, intelligence, dexterity, vitality, actions,
-                    type, selector);
+            return Hero.of(name, hp, maxHp, strength, intelligence, dexterity, vitality, actions, type, selector);
         }
 
     }
