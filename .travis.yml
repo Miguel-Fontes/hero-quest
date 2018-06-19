@@ -4,11 +4,10 @@ env:
   - OUTPUT_DIR=target ARTIFACT_NAME=hero-quest ARTIFACT_EXTENSION=.jar
 
 before_install:
-- sudo apt install git
-- git clone git@github.com:Miguel-Fontes/essentials-validation.git
+- git clone https://github.com/Miguel-Fontes/essentials-validation.git
 - cd essentials-validation
 - mvn install
-- cd ~
+- cd ..
 
 install:
 - mvn clean install -DskipTests -Dmaven.javadoc.skip=true -B -V
