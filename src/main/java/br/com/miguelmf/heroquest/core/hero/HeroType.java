@@ -1,5 +1,5 @@
 package br.com.miguelmf.heroquest.core.hero;
 
-enum HeroType {
+public enum HeroType {
     PC, NPC
 }
