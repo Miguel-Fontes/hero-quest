@@ -7,12 +7,14 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.Length;
+
 import br.com.miguelmf.validator.ValidatedEntity;
 
 public class Hero extends ValidatedEntity {
 
     @NotBlank
-    @Min(value = 3, message = "Name should be at least 3 characters long")
+    @Length(min = 3, message = "Name should be at least 3 characters long")
     private final String name;
 
     @NotNull(message = "Strength should not be null")
