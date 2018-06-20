@@ -3,6 +3,11 @@ language: java
 env:
   - OUTPUT_DIR=target ARTIFACT_NAME=hero-quest ARTIFACT_EXTENSION=.jar
 
+before_install:
+- wget https://github.com/Miguel-Fontes/essentials-validation/releases/download/essentials-validation-1.0/essentials-validation-1.0.tar.gz
+- tar -xvzf essentials-validation-1.0.tar.gz
+- mvn install:install-file -Dfile=./essentials-validation-1.0.jar -DgroupId=br.com.miguelmf -DartifactId=essentials-validation -Dversion=1.0 -Dpackaging=jar
+
 install:
 - mvn clean install -DskipTests -Dmaven.javadoc.skip=true -B -V
 

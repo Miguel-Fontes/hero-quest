@@ -2,7 +2,6 @@
 
 A weekend project, a simple RPG game!
 
-## Roadmap
+## Planned features
 
-- [ ] MVP - Showcase of a basic fight between a Hero and a NPC
-- [ ] ...
+Check the issues for more info!
