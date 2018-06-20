@@ -19,7 +19,6 @@ install:
 
 script:
 - mvn test -B
-- mvn cobertura:cobertura
 
 before_deploy:
 - tar -zcf $TRAVIS_BUILD_DIR/$OUTPUT_DIR/$TRAVIS_TAG.tar.gz -C $TRAVIS_BUILD_DIR/$OUTPUT_DIR $(find $TRAVIS_BUILD_DIR/$OUTPUT_DIR/ -maxdepth 1 -name $ARTIFACT_NAME-*$ARTIFACT_EXTENSION -printf "%f\n")

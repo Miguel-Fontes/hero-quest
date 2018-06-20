@@ -12,9 +12,11 @@ import org.junit.jupiter.api.Test;
 import java.util.Collections;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Disabled;
 
 class HeroQuestTest {
 
+    @Disabled
     @Test
     @DisplayName("Should execute a complete battle")
     void shouldExecuteACompleteBattle() {
