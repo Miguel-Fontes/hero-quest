@@ -1,5 +1,6 @@
 package br.com.miguelmf.heroquest.core.hero;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.Collections;
@@ -28,6 +29,16 @@ class HeroTest {
         assertNotNull(hero);
     }
 
+    @Test
+    @DisplayName("should build a valid attributes entity")
+    void shouldTestAttributes() {
+        Attributes attributes = Attributes.of(6, 7, 8, 9);
 
+        assertNotNull(attributes);
+        assertEquals(6, attributes.getStrength());
+        assertEquals(7, attributes.getDexterity());
+        assertEquals(8, attributes.getIntelligence());
+        assertEquals(9, attributes.getVitality());
+    }
 
 }

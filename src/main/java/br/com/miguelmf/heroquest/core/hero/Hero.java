@@ -9,6 +9,7 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Length;
 
+import br.com.miguelmf.commons.Stringfy;
 import br.com.miguelmf.validator.ValidatedEntity;
 
 public class Hero extends ValidatedEntity {
@@ -17,21 +18,8 @@ public class Hero extends ValidatedEntity {
     @Length(min = 3, message = "Name should be at least 3 characters long")
     private final String name;
 
-    @NotNull(message = "Strength should not be null")
-    @Min(value = 6, message = "Strength should be at least 6")
-    private final int strength;
-
-    @NotNull(message = "Dexterity should not be null")
-    @Min(value = 6, message = "Dexterity should be at least 6")
-    private final int dexterity;
-
-    @NotNull(message = "Intelligence should not be null")
-    @Min(value = 6, message = "Intelligente should be at least 6")
-    private final int intelligence;
-
-    @NotNull(message = "Vitality should not be null")
-    @Min(value = 6, message = "Vitality should be at least 6")
-    private final int vitality;
+    @NotNull
+    private final Attributes attributes;
 
     @NotNull(message = "HP should not be null")
     private final int hp;
@@ -50,13 +38,10 @@ public class Hero extends ValidatedEntity {
     @NotNull(message="Selector should not be null")
     private final Selector selector;
 
-    private Hero(String name, int hp, int maxHp, int strength, int intelligence, int dexterity, int vitality,
+    private Hero(String name, int hp, int maxHp, Attributes attributes,
             Collection<Action> actions, HeroType type, Selector selector) {
         this.name = name;
-        this.strength = strength;
-        this.dexterity = dexterity;
-        this.intelligence = intelligence;
-        this.vitality = vitality;
+        this.attributes = attributes;
         this.hp = hp;
         this.maxHp = maxHp;
         this.type = type;
@@ -67,20 +52,33 @@ public class Hero extends ValidatedEntity {
 
     public static Hero of(String name, int hp, int maxHp, int strength, int intelligence, int dexterity, int vitality,
             Collection<Action> actions, HeroType type, Selector selector) {
-        return new Hero(name, hp, maxHp, strength, intelligence, dexterity, vitality, actions, type, selector);
+        Attributes attributes = Attributes.of(strength, dexterity, intelligence, vitality);
+		return new Hero(name, hp, maxHp, attributes, actions, type, selector);
     }
 
     public static Builder builder() {
         return new Builder();
     }
 
+    public Object getStrength() {
+        return attributes.getStrength();
+    }
+
     public int getDexterity() {
-        return dexterity;
+        return attributes.getDexterity();
+    }
+
+    public Object getIntelligence() {
+        return attributes.getIntelligence();
+    }
+
+    public Object getVitality() {
+        return attributes.getVitality();
     }
 
     @Override
     public String toString() {
-        return this.getClass().getName() + "{\n" + "name: " + name + "}";
+        return Stringfy.curly(this);
     }
 
     public static class Builder {
