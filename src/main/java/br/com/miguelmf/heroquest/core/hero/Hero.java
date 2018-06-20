@@ -28,36 +28,45 @@ public class Hero extends ValidatedEntity {
     @Min(value = 12, message = "HP should be at least 12")
     private final int maxHp;
 
-    @NotNull(message = "Type should not be null")
-    private final HeroType type;
-
     @NotNull(message = "Actions should not be null")
     @Size(min = 1, message = "Actions length should be at least 1")
     private final Collection<Action> actions;
 
-    @NotNull(message="Selector should not be null")
+    @NotNull(message = "Selector should not be null")
     private final Selector selector;
 
-    private Hero(String name, int hp, int maxHp, Attributes attributes,
-            Collection<Action> actions, HeroType type, Selector selector) {
+    @NotNull(message = "Type should not be null")
+    private final HeroType type;
+
+    private Hero(String name, int hp, int maxHp, Attributes attributes, Collection<Action> actions, Selector selector,
+            HeroType type) {
         this.name = name;
         this.attributes = attributes;
         this.hp = hp;
         this.maxHp = maxHp;
-        this.type = type;
         this.actions = actions;
         this.selector = selector;
+        this.type = type;
         validate();
     }
 
     public static Hero of(String name, int hp, int maxHp, int strength, int dexterity, int intelligence, int vitality,
-            Collection<Action> actions, HeroType type, Selector selector) {
+            Collection<Action> actions, Selector selector, HeroType type) {
         Attributes attributes = Attributes.of(strength, dexterity, intelligence, vitality);
-		return new Hero(name, hp, maxHp, attributes, actions, type, selector);
+        return Hero.of(name, hp, maxHp, attributes, actions, selector, type);
+    }
+
+    public static Hero of(String name, int hp, int maxHp, Attributes attributes, Collection<Action> actions,
+            Selector selector, HeroType type) {
+        return new Hero(name, hp, maxHp, attributes, actions, selector, type);
     }
 
     public static Builder builder() {
         return new Builder();
+    }
+
+    public boolean isAlive() {
+        return hp > 0;
     }
 
     public int getStrength() {
@@ -76,7 +85,9 @@ public class Hero extends ValidatedEntity {
         return attributes.getVitality();
     }
 
-
+    public int getHp() {
+        return hp;
+    }
 
     @Override
     public String toString() {
@@ -93,8 +104,8 @@ public class Hero extends ValidatedEntity {
         private int hp;
         private int maxHp;
         private Collection<Action> actions;
-        private HeroType type;
         private Selector selector;
+        private HeroType type;
 
         public Builder name(String name) {
             this.name = name;
@@ -147,7 +158,15 @@ public class Hero extends ValidatedEntity {
         }
 
         public Hero build() {
-            return Hero.of(name, hp, maxHp, strength, dexterity, intelligence, vitality, actions, type, selector);
+            return Hero.of(name, getMaxHpIfHpWasNotSet(), maxHp, getAttributes(), actions, selector, type);
+        }
+
+        private Attributes getAttributes() {
+            return Attributes.of(strength, dexterity, intelligence, vitality);
+        }
+
+        private int getMaxHpIfHpWasNotSet() {
+            return hp = hp == 0 ? maxHp : 0;
         }
 
     }
