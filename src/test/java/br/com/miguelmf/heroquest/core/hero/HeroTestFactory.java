@@ -6,7 +6,7 @@ import java.util.Random;
 
 import br.com.miguelmf.heroquest.core.hero.Hero.Builder;
 
-class HeroTestFactory {
+public class HeroTestFactory {
 
     private static HeroTestFactory factory;
     private Builder heroBuilder;

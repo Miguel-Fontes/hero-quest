@@ -18,4 +18,8 @@ public class Dice {
         return random.nextInt(19) + 1;
     }
 
+	public int d6() {
+		return random.nextInt(5) + 1;
+	}
+
 }

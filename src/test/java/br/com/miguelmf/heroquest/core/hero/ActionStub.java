@@ -13,9 +13,9 @@ public class ActionStub implements Action {
 	}
 
 	@Override
-	public Hero act(Hero hero) {
+	public Hero act(Hero actor, Hero target) {
         actCalls++;
-		return hero;
+		return target;
 	}
 
 }
