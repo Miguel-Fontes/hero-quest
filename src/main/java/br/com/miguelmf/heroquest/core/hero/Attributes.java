@@ -36,7 +36,7 @@ class Attributes extends ValidatedEntity {
         return new Attributes(strength, dexterity, intelligence, vitality);
     }
 
-    public Object getStrength() {
+    public int getStrength() {
         return strength;
     }
 
@@ -44,11 +44,11 @@ class Attributes extends ValidatedEntity {
         return dexterity;
     }
 
-    public Object getIntelligence() {
+    public int getIntelligence() {
         return intelligence;
     }
 
-    public Object getVitality() {
+    public int getVitality() {
         return vitality;
     }
 

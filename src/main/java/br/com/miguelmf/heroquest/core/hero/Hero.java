@@ -60,7 +60,7 @@ public class Hero extends ValidatedEntity {
         return new Builder();
     }
 
-    public Object getStrength() {
+    public int getStrength() {
         return attributes.getStrength();
     }
 
@@ -68,13 +68,15 @@ public class Hero extends ValidatedEntity {
         return attributes.getDexterity();
     }
 
-    public Object getIntelligence() {
+    public int getIntelligence() {
         return attributes.getIntelligence();
     }
 
-    public Object getVitality() {
+    public int getVitality() {
         return attributes.getVitality();
     }
+
+
 
     @Override
     public String toString() {
