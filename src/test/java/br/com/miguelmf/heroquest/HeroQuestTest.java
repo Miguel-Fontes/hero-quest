@@ -25,9 +25,9 @@ class HeroQuestTest {
             .intelligence(12)
             .dexterity(18)
             .vitality(10)
-            .actions(Collections.singleton(new ActionStub()))
+            .actions(Collections.singleton(ActionStub.newInstance()))
             .type(HeroType.NPC)
-            .selector(new SelectorStub())
+            .selector(SelectorStub.newInstance())
             .build();
 
         Hero brutalHero =  Hero.builder()
@@ -37,9 +37,9 @@ class HeroQuestTest {
             .intelligence(8)
             .dexterity(10)
             .vitality(14)
-            .actions(Collections.singleton(new ActionStub()))
+            .actions(Collections.singleton(ActionStub.newInstance()))
             .type(HeroType.NPC)
-            .selector(new SelectorStub())
+            .selector(SelectorStub.newInstance())
             .build();
 
         Battle battle = Battle.of(smoothHero, brutalHero);

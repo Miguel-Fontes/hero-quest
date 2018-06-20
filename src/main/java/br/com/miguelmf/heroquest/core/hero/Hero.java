@@ -1,6 +1,8 @@
 package br.com.miguelmf.heroquest.core.hero;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -69,8 +71,16 @@ public class Hero extends ValidatedEntity {
         return hp > 0;
     }
 
+    public Collection<Action> getKnownActions() {
+		return Collections.unmodifiableCollection(actions);
+	}
+
     public Hero takeDamage(int damage) {
 		return Hero.of(name, hp - damage, maxHp, attributes, actions, selector, type);
+    }
+
+    public Action selectNextAction() {
+        return selector.select(this);
 	}
 
     public int getStrength() {
@@ -93,11 +103,6 @@ public class Hero extends ValidatedEntity {
         return hp;
     }
 
-    public Collection<Action> getActions() {
-		return actions;
-	}
-
-
     @Override
     public String toString() {
         return Stringfy.curly(this);
@@ -115,6 +120,10 @@ public class Hero extends ValidatedEntity {
         private Collection<Action> actions;
         private Selector selector;
         private HeroType type;
+
+        public Builder () {
+            actions = new ArrayList<>();
+        }
 
         public Builder name(String name) {
             this.name = name;
@@ -153,6 +162,11 @@ public class Hero extends ValidatedEntity {
 
         public Builder actions(Collection<Action> actions) {
             this.actions = actions;
+            return this;
+        }
+
+        public Builder addAction(Action action) {
+            this.actions.add(action);
             return this;
         }
 

@@ -6,9 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.stream.Stream;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
@@ -18,20 +17,15 @@ import org.junit.jupiter.api.Test;
 class HeroTest {
 
     public static Hero hero;
+    private static SelectorStub SELECTOR = SelectorStub.newInstance();
+    private static ActionStub ACTION = ActionStub.newInstance();
 
     @BeforeAll
     static void setup() {
-        hero = Hero.builder()
-            .name("Herod")
-            .maxHp(100)
-            .strength(16)
-            .dexterity(12)
-            .intelligence(10)
-            .vitality(14)
-            .actions(Collections
-            .singleton(new ActionStub()))
-            .type(HeroType.NPC)
-            .selector(new SelectorStub())
+        hero = HeroTestFactory.instance()
+            .getBuilder()
+            .actions(Arrays.asList(ACTION))
+            .selector(SELECTOR)
             .build();
     }
 
@@ -65,19 +59,27 @@ class HeroTest {
     @Test
     @DisplayName("a hero should report it's actions")
     void shouldReturnActions() {
-        assertEquals(1, hero.getActions().size());
+        assertEquals(1, hero.getKnownActions().size());
     }
 
     @Test
     @DisplayName("a hero actions list should not be modified directly")
     void aHeroActionListShouldNotBeModifiedDirectly() {
-        Collection<Action> actions = hero.getActions();
+        Collection<Action> actions = hero.getKnownActions();
 
-        Throwable throwable =assertThrows(UnsupportedOperationException.class, () -> {
-            actions.add(new ActionStub());
+        Throwable throwable = assertThrows(UnsupportedOperationException.class, () -> {
+            actions.add(ActionStub.newInstance());
         });
 
         assertNotNull(throwable);
+    }
+
+    @Test
+    @DisplayName("should call a selector for choosing the next action")
+    void shouldUseSelectorForChoosingNextAction() {
+        hero.selectNextAction();
+
+        assertTrue(SELECTOR.selectCalls == 1);
     }
 
 }
