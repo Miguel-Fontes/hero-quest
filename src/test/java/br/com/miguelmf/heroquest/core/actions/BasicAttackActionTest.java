@@ -2,11 +2,8 @@ package br.com.miguelmf.heroquest.core.actions;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.stream.Stream;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.RepeatedTest;
-import org.junit.jupiter.api.Test;
 
 import br.com.miguelmf.heroquest.core.hero.Hero;
 import br.com.miguelmf.heroquest.core.hero.HeroTestFactory;
