@@ -12,6 +12,8 @@ import java.util.stream.Collectors;
  */
 public class Stringfy {
 
+    private Stringfy () {
+    }
 
     /**
      * Stringfy the object using a list of it's attributes enclosed on curly braces
@@ -26,22 +28,22 @@ public class Stringfy {
 
     private static String computeListOfFieldNames(Object object) {
         return Arrays.stream(object.getClass().getDeclaredFields())
+            .filter(Stringfy::isMemberField)
             .map(field -> field.getName() + ": " + getFieldValue(field, object))
             .collect(Collectors.joining(", "));
+    }
+
+    private static boolean isMemberField(Field field) {
+        return !field.isSynthetic();
     }
 
 	private static String getFieldValue(Field field, Object object) {
 		try {
             field.setAccessible(true);
 			return field.get(object).toString();
-		} catch (IllegalArgumentException e) {
-            e.printStackTrace();
+		} catch (IllegalArgumentException | IllegalAccessException e) {
             return "";
-		} catch (IllegalAccessException e) {
-            e.printStackTrace();
-            return "";
-		}
+        }
 	}
-
 
 }

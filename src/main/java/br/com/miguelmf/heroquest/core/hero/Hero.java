@@ -52,12 +52,6 @@ public class Hero extends ValidatedEntity {
         validate();
     }
 
-    public static Hero of(String name, int hp, int maxHp, int strength, int dexterity, int intelligence, int vitality,
-            Collection<Action> actions, Selector selector, HeroType type) {
-        Attributes attributes = Attributes.of(strength, dexterity, intelligence, vitality);
-        return Hero.of(name, hp, maxHp, attributes, actions, selector, type);
-    }
-
     public static Hero of(String name, int hp, int maxHp, Attributes attributes, Collection<Action> actions,
             Selector selector, HeroType type) {
         return new Hero(name, hp, maxHp, attributes, actions, selector, type);
@@ -145,18 +139,27 @@ public class Hero extends ValidatedEntity {
             return this;
         }
 
-        public Builder intelligence(int intelligence) {
-            this.intelligence = intelligence;
-            return this;
-        }
-
         public Builder dexterity(int dexterity) {
             this.dexterity = dexterity;
             return this;
         }
 
+        public Builder intelligence(int intelligence) {
+            this.intelligence = intelligence;
+            return this;
+        }
+
         public Builder vitality(int vitality) {
             this.vitality = vitality;
+            return this;
+        }
+
+        public Builder attributes(Attributes attributes) {
+            this.strength = attributes.getStrength();
+            this.dexterity = attributes.getDexterity();
+            this.intelligence = attributes.getIntelligence();
+            this.vitality = attributes.getVitality();
+
             return this;
         }
 
@@ -189,7 +192,7 @@ public class Hero extends ValidatedEntity {
         }
 
         private int getMaxHpIfHpWasNotSet() {
-            return hp = hp == 0 ? maxHp : 0;
+            return hp == 0 ? maxHp : hp;
         }
 
     }
