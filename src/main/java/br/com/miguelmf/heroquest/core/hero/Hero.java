@@ -50,7 +50,7 @@ public class Hero extends ValidatedEntity {
         validate();
     }
 
-    public static Hero of(String name, int hp, int maxHp, int strength, int intelligence, int dexterity, int vitality,
+    public static Hero of(String name, int hp, int maxHp, int strength, int dexterity, int intelligence, int vitality,
             Collection<Action> actions, HeroType type, Selector selector) {
         Attributes attributes = Attributes.of(strength, dexterity, intelligence, vitality);
 		return new Hero(name, hp, maxHp, attributes, actions, type, selector);
@@ -147,7 +147,7 @@ public class Hero extends ValidatedEntity {
         }
 
         public Hero build() {
-            return Hero.of(name, hp, maxHp, strength, intelligence, dexterity, vitality, actions, type, selector);
+            return Hero.of(name, hp, maxHp, strength, dexterity, intelligence, vitality, actions, type, selector);
         }
 
     }
