@@ -6,13 +6,17 @@ import br.com.miguelmf.heroquest.core.hero.Hero;
 
 public class BasicAttackAction implements Action {
 
-	private final String NAME = "Basic Attack";
+	private final static String NAME = "Basic Attack";
 
 	private BasicAttackAction() {
 	}
 
 	public static BasicAttackAction newInstance() {
 		return new BasicAttackAction();
+	}
+
+	public String getName() {
+		return NAME;
 	}
 
 	@Override
