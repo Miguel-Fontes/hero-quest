@@ -12,6 +12,9 @@ import java.util.stream.Collectors;
  */
 public class Stringfy {
 
+    private Stringfy () {
+
+    }
 
     /**
      * Stringfy the object using a list of it's attributes enclosed on curly braces
@@ -34,14 +37,10 @@ public class Stringfy {
 		try {
             field.setAccessible(true);
 			return field.get(object).toString();
-		} catch (IllegalArgumentException e) {
+		} catch (IllegalArgumentException | IllegalAccessException e) {
             e.printStackTrace();
             return "";
-		} catch (IllegalAccessException e) {
-            e.printStackTrace();
-            return "";
-		}
+        }
 	}
-
 
 }
