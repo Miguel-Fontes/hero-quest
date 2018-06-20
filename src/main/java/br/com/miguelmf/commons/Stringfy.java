@@ -42,7 +42,6 @@ public class Stringfy {
             field.setAccessible(true);
 			return field.get(object).toString();
 		} catch (IllegalArgumentException | IllegalAccessException e) {
-            e.printStackTrace();
             return "";
         }
 	}
