@@ -24,7 +24,7 @@ before_deploy:
 - tar -zcf $TRAVIS_BUILD_DIR/$OUTPUT_DIR/$TRAVIS_TAG.tar.gz -C $TRAVIS_BUILD_DIR/$OUTPUT_DIR $(find $TRAVIS_BUILD_DIR/$OUTPUT_DIR/ -maxdepth 1 -name $ARTIFACT_NAME-*$ARTIFACT_EXTENSION -printf "%f\n")
 
 after_success:
-- bash <(curl -s https://codecov.io/bash) -s target/site/jacoco/
+- bash <(curl -s https://codecov.io/bash)
 - mvn sonar:sonar -Dsonar.organization=$SONARQUBE_ORGANIZATION -Dsonar.host.url=https://sonarcloud.io -Dsonar.login=$SONARQUBE_TOKEN
 
 deploy:
