@@ -1,7 +1,13 @@
 language: java
 
+sudo: false
+
 env:
   - OUTPUT_DIR=target ARTIFACT_NAME=hero-quest ARTIFACT_EXTENSION=.jar
+
+cache:
+  directories:
+  - $HOME/.m2
 
 before_install:
 - wget https://github.com/Miguel-Fontes/essentials-validation/releases/download/essentials-validation-1.0/essentials-validation-1.0.tar.gz
@@ -11,21 +17,12 @@ before_install:
 install:
 - mvn clean install -DskipTests -Dmaven.javadoc.skip=true -B -V
 
-sudo: false
-
 script:
 - mvn test -B
+- mvn cobertura:cobertura
 
 before_deploy:
 - tar -zcf $TRAVIS_BUILD_DIR/$OUTPUT_DIR/$TRAVIS_TAG.tar.gz -C $TRAVIS_BUILD_DIR/$OUTPUT_DIR $(find $TRAVIS_BUILD_DIR/$OUTPUT_DIR/ -maxdepth 1 -name $ARTIFACT_NAME-*$ARTIFACT_EXTENSION -printf "%f\n")
-
-cache:
-  directories:
-  - $HOME/.m2
-
-language: java
-
-script: "mvn cobertura:cobertura"
 
 after_success:
 - bash <(curl -s https://codecov.io/bash)
