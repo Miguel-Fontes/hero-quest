@@ -28,8 +28,13 @@ public class Stringfy {
 
     private static String computeListOfFieldNames(Object object) {
         return Arrays.stream(object.getClass().getDeclaredFields())
+            .filter(Stringfy::isMemberField)
             .map(field -> field.getName() + ": " + getFieldValue(field, object))
             .collect(Collectors.joining(", "));
+    }
+
+    private static boolean isMemberField(Field field) {
+        return !field.isSynthetic();
     }
 
 	private static String getFieldValue(Field field, Object object) {
