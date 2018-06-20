@@ -69,6 +69,10 @@ public class Hero extends ValidatedEntity {
         return hp > 0;
     }
 
+    public Hero takeDamage(int damage) {
+		return Hero.of(name, hp - damage, maxHp, attributes, actions, selector, type);
+	}
+
     public int getStrength() {
         return attributes.getStrength();
     }
@@ -88,6 +92,11 @@ public class Hero extends ValidatedEntity {
     public int getHp() {
         return hp;
     }
+
+    public Collection<Action> getActions() {
+		return actions;
+	}
+
 
     @Override
     public String toString() {
