@@ -14,6 +14,7 @@ import java.util.Collections;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Disabled;
 
+@DisplayName("Hero Quest")
 class HeroQuestTest {
 
     @Disabled

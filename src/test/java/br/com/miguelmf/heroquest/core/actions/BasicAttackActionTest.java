@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.RepeatedTest;
-import org.junit.jupiter.api.Test;
 
 import br.com.miguelmf.heroquest.core.hero.Hero;
 import br.com.miguelmf.heroquest.core.hero.HeroTestFactory;
