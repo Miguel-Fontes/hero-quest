@@ -6,7 +6,7 @@ import br.com.miguelmf.heroquest.core.hero.Hero;
 
 public class BasicAttackAction implements Action {
 
-	private final static String NAME = "Basic Attack";
+	private static final String NAME = "Basic Attack";
 
 	private BasicAttackAction() {
 	}
