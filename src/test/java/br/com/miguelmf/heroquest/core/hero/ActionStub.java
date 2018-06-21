@@ -18,4 +18,9 @@ public class ActionStub implements Action {
 		return target;
 	}
 
+	@Override
+	public String getName() {
+		return "Action Stub";
+	}
+
 }
