@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.Test;
 
 import br.com.miguelmf.heroquest.core.hero.Hero;
 import br.com.miguelmf.heroquest.core.hero.HeroTestFactory;
@@ -11,7 +12,7 @@ import br.com.miguelmf.heroquest.core.hero.HeroTestFactory;
 @DisplayName("Basic Attack")
 class BasicAttackActionTest {
 
-    @RepeatedTest(10)
+    @Test
     @DisplayName("a BasicAttack should damage it's target")
     void shouldHitWithABasicAttack() {
         BasicAttackAction basicAttack = BasicAttackAction.newInstance();
