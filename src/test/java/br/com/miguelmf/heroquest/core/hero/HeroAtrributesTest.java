@@ -14,7 +14,7 @@ class HeroAttributesTest {
     @DisplayName("should throw error when strengh is < 6")
     void shouldThrowErrorForStrengthBelowMinimum() {
         Throwable throwable = assertThrows(IllegalArgumentException.class, () -> {
-            HeroTestFactory.instance()
+            HeroTestFactory.newInstance()
                 .getBuilder()
                 .strength(5)
                 .build();
@@ -28,7 +28,7 @@ class HeroAttributesTest {
     @DisplayName("should throw error when dexterity is < 6")
     void shouldThrowErrorForDexterityBelowMinimum() {
         Throwable throwable = assertThrows(IllegalArgumentException.class, () -> {
-            HeroTestFactory.instance()
+            HeroTestFactory.newInstance()
                 .getBuilder()
                 .dexterity(5)
                 .build();
@@ -42,7 +42,7 @@ class HeroAttributesTest {
     @DisplayName("should throw error when intelligence is < 6")
     void shouldThrowErrorForIntelligenceBelowMinimum() {
         Throwable throwable = assertThrows(IllegalArgumentException.class, () -> {
-            HeroTestFactory.instance()
+            HeroTestFactory.newInstance()
                 .getBuilder()
                 .intelligence(5)
                 .build();
@@ -56,7 +56,7 @@ class HeroAttributesTest {
     @DisplayName("should throw error when vitality is < 6")
     void shouldThrowErrorForVitalityBelowMinimum() {
         Throwable throwable = assertThrows(IllegalArgumentException.class, () -> {
-            HeroTestFactory.instance()
+            HeroTestFactory.newInstance()
                 .getBuilder()
                 .vitality(5)
                 .build();

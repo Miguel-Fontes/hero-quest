@@ -24,7 +24,7 @@ class BasicAttackActionTest {
     }
 
 	private Hero getHeroWith100Hp() {
-		return HeroTestFactory.instance().getBuilder().hp(100).build();
+		return HeroTestFactory.newInstance().getBuilder().hp(100).build();
 	}
 
 }
