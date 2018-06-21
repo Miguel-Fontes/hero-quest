@@ -22,8 +22,9 @@ class HeroTest {
 
     @BeforeAll
     static void setup() {
-        hero = HeroTestFactory.instance()
+        hero = HeroTestFactory.newInstance()
             .getBuilder()
+            .maxHp(100)
             .actions(Arrays.asList(ACTION))
             .selector(SELECTOR)
             .build();

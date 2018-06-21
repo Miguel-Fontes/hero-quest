@@ -6,7 +6,7 @@ import java.util.Random;
 
 import br.com.miguelmf.heroquest.core.hero.Hero.Builder;
 
-class HeroTestFactory {
+public class HeroTestFactory {
 
     private static HeroTestFactory factory;
     private Builder heroBuilder;
@@ -16,33 +16,40 @@ class HeroTestFactory {
         "Olag Of The Heckling Gluttons"
     );
 
-    public static HeroTestFactory instance() {
-        factory = factory != null ? factory : new HeroTestFactory();
-        return factory;
+    private HeroTestFactory(Builder heroBuilder) {
+        this.heroBuilder = heroBuilder;
     }
 
-    private HeroTestFactory() {
-        heroBuilder = Hero.builder()
+    public static HeroTestFactory newInstance() {
+        return new HeroTestFactory(newHeroBuilderInstance());
+    }
+
+    private static Builder newHeroBuilderInstance() {
+        return Hero.builder()
             .name(getRandomName())
-            .maxHp(100)
-            .strength(16)
-            .dexterity(12)
-            .intelligence(10)
-            .vitality(12)
+            .maxHp(getRandomAttribute(50, 100))
+            .strength(getRandomAttribute(6, 20))
+            .dexterity(getRandomAttribute(6, 20))
+            .intelligence(getRandomAttribute(6, 20))
+            .vitality(getRandomAttribute(6, 20))
             .addAction(ActionStub.newInstance())
             .type(HeroType.NPC)
             .selector(SelectorStub.newInstance());
     }
 
-	private String getRandomName() {
+	private static String getRandomName() {
 		return names.get(new Random().nextInt(names.size()));
+    }
+
+    private static int getRandomAttribute(int lowerBound, int upperBound) {
+		return new Random().nextInt(upperBound - 1) + lowerBound;
     }
 
     public Builder getBuilder() {
         return heroBuilder;
     }
 
-    public Hero build() {
+    public Hero buildHero() {
         return heroBuilder.build();
     }
 

@@ -17,7 +17,7 @@ class Attributes extends ValidatedEntity {
     private final int dexterity;
 
     @NotNull(message = "Intelligence should not be null")
-    @Min(value = 6, message = "Intelligente should be at least 6")
+    @Min(value = 6, message = "Intelligence should be at least 6")
     private final int intelligence;
 
     @NotNull(message = "Vitality should not be null")

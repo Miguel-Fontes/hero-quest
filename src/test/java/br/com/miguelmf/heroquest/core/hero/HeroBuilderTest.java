@@ -13,6 +13,7 @@ import org.opentest4j.MultipleFailuresError;
 
 import br.com.miguelmf.heroquest.core.hero.Hero.Builder;
 
+@DisplayName("Hero Builder")
 class HeroBuilderTest {
 
     private static Builder builder = Hero.builder();
