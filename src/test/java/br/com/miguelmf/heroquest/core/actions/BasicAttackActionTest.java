@@ -12,7 +12,7 @@ import br.com.miguelmf.heroquest.core.hero.HeroTestFactory;
 @DisplayName("Basic Attack")
 class BasicAttackActionTest {
 
-    @Test
+    @RepeatedTest(10)
     @DisplayName("a BasicAttack should damage it's target")
     void shouldHitWithABasicAttack() {
         BasicAttackAction basicAttack = BasicAttackAction.newInstance();
