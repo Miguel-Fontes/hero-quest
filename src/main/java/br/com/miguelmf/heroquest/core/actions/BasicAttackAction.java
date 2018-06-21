@@ -20,8 +20,8 @@ public class BasicAttackAction implements Action {
 	}
 
 	@Override
-	public Hero act(Hero actor, Hero target) {
-		return target.takeDamage(actor.getStrength() + Dice.instance().d6());
+	public Hero act(Hero hero, Hero target) {
+		return target.takeDamage(hero.getStrength() + Dice.instance().d6());
 	}
 
 }
