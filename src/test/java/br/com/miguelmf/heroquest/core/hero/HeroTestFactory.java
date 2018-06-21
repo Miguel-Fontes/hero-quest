@@ -49,7 +49,7 @@ public class HeroTestFactory {
         return heroBuilder;
     }
 
-    public Hero build() {
+    public Hero buildHero() {
         return heroBuilder.build();
     }
 
