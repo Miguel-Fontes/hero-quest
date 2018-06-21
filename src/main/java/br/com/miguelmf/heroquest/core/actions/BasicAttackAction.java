@@ -15,6 +15,7 @@ public class BasicAttackAction implements Action {
 		return new BasicAttackAction();
 	}
 
+	@Override
 	public String getName() {
 		return NAME;
 	}
