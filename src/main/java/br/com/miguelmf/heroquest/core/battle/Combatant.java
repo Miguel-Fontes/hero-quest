@@ -37,12 +37,16 @@ class Combatant {
         return initiative;
     }
 
-	public boolean isAlive() {
-		return hero.isAlive();
-	}
+    public boolean isAlive() {
+        return hero.isAlive();
+    }
 
-  public Object getName() {
-    return hero.getName();
-  }
+    public String getName() {
+        return hero.getName();
+    }
+
+    public int getHp() {
+        return hero.getHp();
+    }
 
 }

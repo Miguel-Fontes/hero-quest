@@ -35,6 +35,6 @@ class HeroQuestTest {
             .addAction(BasicAttackAction.newInstance())
             .selector(BasicAttackSelector.newInstance())
             .build();
-	}
+    }
 
 }

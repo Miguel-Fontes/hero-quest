@@ -1,5 +1,8 @@
 package br.com.miguelmf.heroquest.core.battle;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -12,6 +15,7 @@ import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
 import br.com.miguelmf.heroquest.core.hero.HeroTestFactory;
+import br.com.miguelmf.heroquest.core.selectors.BasicAttackSelector;
 
 @DisplayName("Battle")
 class BattleTest {
@@ -21,8 +25,8 @@ class BattleTest {
     @BeforeAll
     static void setup() {
         battle = Battle.of(
-            HeroTestFactory.newInstance().buildHero(),
-            HeroTestFactory.newInstance().buildHero()
+            HeroTestFactory.newInstance().getBuilder().selector(BasicAttackSelector.newInstance()).build(),
+            HeroTestFactory.newInstance().getBuilder().selector(BasicAttackSelector.newInstance()).build()
         );
     }
 
@@ -47,6 +51,32 @@ class BattleTest {
 
         assertNotNull(throwable);
     }
+
+    @Test
+    @DisplayName("should return no Winner if battle isn't over")
+    void shouldReturnNoWinnerForIncompleteBattle() {
+        assertFalse(battle.isComplete());
+        assertFalse(battle.getWinner().isPresent());
+    }
+
+    @Test
+    @DisplayName("should compute a turn")
+    void shouldComputeATurn() {
+        Battle nextTurnBattle = battle.nextTurn();
+
+        Combatant combatantOnFirstTurn = battle.getCombatants().get(1);
+        Combatant combatantOnSecondTurn = nextTurnBattle.getCombatants().get(0);
+        assertEquals(combatantOnFirstTurn.getName(), combatantOnSecondTurn.getName());
+        assertNotEquals(combatantOnFirstTurn.getHp(), combatantOnSecondTurn.getHp());
+    }
+
+    @Test
+    @DisplayName("isComplete should return false when both heros are alive")
+    void shouldReturnNotComplete() {
+        assertFalse(battle.isComplete());
+    }
+
+
 
 
 }
