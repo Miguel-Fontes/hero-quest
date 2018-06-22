@@ -3,6 +3,7 @@ package br.com.miguelmf.heroquest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
 import br.com.miguelmf.heroquest.core.actions.BasicAttackAction;
 import br.com.miguelmf.heroquest.core.battle.Battle;
 import br.com.miguelmf.heroquest.core.hero.Hero;
