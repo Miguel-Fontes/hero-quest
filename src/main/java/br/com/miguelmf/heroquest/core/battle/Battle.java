@@ -1,7 +1,5 @@
 package br.com.miguelmf.heroquest.core.battle;
 
-import java.lang.annotation.Target;
-import java.rmi.activation.ActivationGroupDesc.CommandEnvironment;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -14,7 +12,6 @@ import javax.validation.constraints.NotNull;
 
 import br.com.miguelmf.heroquest.core.hero.Action;
 import br.com.miguelmf.heroquest.core.hero.Hero;
-import br.com.miguelmf.heroquest.core.hero.Hero.Builder;
 import br.com.miguelmf.validator.ValidatedEntity;
 
 public class Battle extends ValidatedEntity {
@@ -93,8 +90,14 @@ public class Battle extends ValidatedEntity {
     }
 
     public Optional<Combatant> getWinner() {
-        return isComplete() ? Optional.of(current.isAlive() ? current : opponent) : Optional.empty();
+        return isComplete()
+            ? Optional.of(getSurvivor())
+            : Optional.empty();
     }
+
+	private Combatant getSurvivor() {
+		return current.isAlive() ? current : opponent;
+	}
 
     public List<Combatant> getCombatants() {
         return Arrays.asList(current, opponent);
