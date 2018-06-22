@@ -8,12 +8,15 @@ import br.com.miguelmf.heroquest.core.hero.Hero.Builder;
 
 public class HeroTestFactory {
 
-    private static HeroTestFactory factory;
     private Builder heroBuilder;
     private static List<String> names = Arrays.asList(
         "Abrolk Of The Ghastly Outlaws",
         "Altag Of The Screaming Sadists",
-        "Olag Of The Heckling Gluttons"
+        "Olag Of The Heckling Gluttons",
+        "Zachary Sepulveda",
+        "Kyran Sharma",
+        "Stella Segura",
+        "Woodrow Saavedra"
     );
 
     private HeroTestFactory(Builder heroBuilder) {

@@ -75,7 +75,11 @@ public class Hero extends ValidatedEntity {
 
     public Action selectNextAction() {
         return selector.select(this);
-	}
+    }
+
+    public String getName() {
+        return name;
+      }
 
     public int getStrength() {
         return attributes.getStrength();
