@@ -1,5 +1,6 @@
 package br.com.miguelmf.heroquest.core.battle;
 
+import br.com.miguelmf.heroquest.core.hero.Action;
 import br.com.miguelmf.heroquest.core.hero.Hero;
 
 class Combatant {
@@ -7,17 +8,41 @@ class Combatant {
     private final Hero hero;
     private final int initiative;
 
-    private Combatant(Hero hero) {
+    private Combatant(Hero hero, int initiative) {
         this.hero = hero;
-        this.initiative = rollInitiative(hero);
+        this.initiative = initiative;
     }
 
     public static Combatant from(Hero hero) {
-        return new Combatant(hero);
+        return new Combatant(hero, rollInitiative(hero));
     }
 
-    private int rollInitiative(Hero hero) {
+    public static Combatant of(Hero hero, int initiative) {
+        return new Combatant(hero, initiative);
+    }
+
+    private static int rollInitiative(Hero hero) {
         return hero.getDexterity() + Dice.instance().d20();
     }
+
+    public Action selectNextAction() {
+        return hero.selectNextAction();
+    }
+
+    public Hero getHero() {
+        return hero;
+    }
+
+    public int getInitiative() {
+        return initiative;
+    }
+
+	public boolean isAlive() {
+		return hero.isAlive();
+	}
+
+  public Object getName() {
+    return hero.getName();
+  }
 
 }
