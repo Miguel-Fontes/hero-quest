@@ -33,6 +33,13 @@
         </repository>
     </distributionManagement>
 
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
+    </repositories>
+
     <build>
         <plugins>
             <plugin>
@@ -87,9 +94,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>br.com.miguelmf</groupId>
+            <groupId>com.github.miguel-fontes</groupId>
             <artifactId>essentials-validation</artifactId>
-            <version>1.0</version>
+            <version>essentials-validation-1.0</version>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
