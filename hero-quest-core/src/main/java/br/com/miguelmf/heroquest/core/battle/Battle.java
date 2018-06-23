@@ -66,10 +66,14 @@ public class Battle extends ValidatedEntity {
     }
 
     public Battle nextTurn() {
-        return isComplete() ? this : computeNextTurn();
+        return isComplete() ? complete() : computeNextTurn();
     }
 
-    private Battle computeNextTurn() {
+    private Battle complete() {
+        return this;
+	}
+
+	private Battle computeNextTurn() {
         Action action = current.selectNextAction();
         Turn turn = Turn.of(current, opponent, action);
         List<Turn> updatedTurns = new ArrayList<>();
