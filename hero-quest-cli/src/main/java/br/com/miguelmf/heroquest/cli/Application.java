@@ -39,7 +39,7 @@ class Application {
             battle = battle.nextTurn();
         }
 
-        battle.getWinner().ifPresent(h -> System.out.println(h.toString()));
+        battle.getWinner().ifPresent(h -> System.out.println("The Winner is: " + h.toString()));
 
     }
 
