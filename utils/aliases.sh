@@ -1,5 +1,5 @@
 #bin/bash
-alias test='java -jar /opt/junit5/console/junit-platform-console-standalone-1.2.0-RC1.jar --cp ./target/test-classes/:./target/classes/:./target/dependency/essentials-validation-1.0.jar --select-package "br.com.miguelmf"'
+alias test='java -jar /opt/junit5/console/junit-platform-console-standalone-1.2.0-RC1.jar --cp ./target/test-classes/:./target/classes/:./target/dependency/essentials-validation-essentials-validation-1.0.jar:./target/dependency/validation-api-2.0.1.Final.jar:./target/dependency/hibernate-validator-6.0.10.Final.jar:./target/dependency/javax.el-3.0.1-b09.jar:./target/dependency/apiguardian-api-1.0.0.jar:./target/dependency/classmate-1.3.4.jar:./target/dependency/jboss-logging-3.3.2.Final.jar --select-package "br.com.miguelmf"'
 alias stg='git stage .'
 alias st='git status'
 alias cmm='git commit -m'
