@@ -89,14 +89,14 @@ public class Battle extends ValidatedEntity {
         return this.of(nextHeroToAct, current, turns);
     }
 
-    public Optional<Combatant> getWinner() {
+    public Optional<Hero> getWinner() {
         return isComplete()
             ? Optional.of(getSurvivor())
             : Optional.empty();
     }
 
-	private Combatant getSurvivor() {
-		return current.isAlive() ? current : opponent;
+	private Hero getSurvivor() {
+		return current.isAlive() ? current.getHero() : opponent.getHero();
 	}
 
     public List<Combatant> getCombatants() {

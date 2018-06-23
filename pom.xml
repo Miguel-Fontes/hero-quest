@@ -6,11 +6,16 @@
     <groupId>br.com.miguelmf</groupId>
     <artifactId>hero-quest</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
 
     <name>hero-quest</name>
     <url>http://maven.apache.org</url>
-    <description>Java Tooling Template Archetype</description>
+    <description>A simple RPG Game!</description>
+
+    <modules>
+        <module>hero-quest-cli</module>
+        <module>hero-quest-core</module>
+    </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -94,15 +99,11 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.github.miguel-fontes</groupId>
-            <artifactId>essentials-validation</artifactId>
-            <version>essentials-validation-1.0</version>
-        </dependency>
-        <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
             <version>5.2.0</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
+
 </project>

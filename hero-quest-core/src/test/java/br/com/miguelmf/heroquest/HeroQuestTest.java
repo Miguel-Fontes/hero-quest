@@ -26,7 +26,6 @@ class HeroQuestTest {
             battle = battle.nextTurn();
             maxIterations--;
         }
-
         Assertions.assertTrue(battle.getWinner().isPresent(), "The battle is done but there is no Winner");
     }
 
