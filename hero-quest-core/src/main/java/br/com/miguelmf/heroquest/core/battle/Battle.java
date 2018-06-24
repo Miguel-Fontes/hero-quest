@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 import br.com.miguelmf.event.DomainEventPublisher;
 import br.com.miguelmf.heroquest.core.hero.Action;
 import br.com.miguelmf.heroquest.core.hero.Hero;
-import br.com.miguelmf.heroquest.events.BattleCompleteEvent;
+import br.com.miguelmf.heroquest.core.events.BattleCompleteEvent;
 import br.com.miguelmf.validator.ValidatedEntity;
 
 public class Battle extends ValidatedEntity {

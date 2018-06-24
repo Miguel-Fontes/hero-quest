@@ -1,4 +1,4 @@
-package br.com.miguelmf.heroquest.events;
+package br.com.miguelmf.heroquest.core.events;
 
 import br.com.miguelmf.heroquest.core.hero.Hero;
 import br.com.miguelmf.validator.ValidatedEntity;

@@ -1,4 +1,4 @@
-package br.com.miguelmf.heroquest.events;
+package br.com.miguelmf.heroquest.core.events;
 
 public class BattleTurnComputedEvent {
 

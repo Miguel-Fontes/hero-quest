@@ -1,7 +1,7 @@
 package br.com.miguelmf.heroquest.cli.subscribers;
 
 import br.com.miguelmf.event.DomainEventSubscriber;
-import br.com.miguelmf.heroquest.events.BattleCompleteEvent;
+import br.com.miguelmf.heroquest.core.events.BattleCompleteEvent;
 
 public class BattleCompletedSubscriber implements DomainEventSubscriber<BattleCompleteEvent> {
 
