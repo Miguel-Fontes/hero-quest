@@ -48,7 +48,7 @@ public class DomainEventPublisher {
 	}
 
     public Boolean hasSubscribers() {
-        return subscribers.size() > 0;
+        return !subscribers.isEmpty();
     }
 
     public void reset() {

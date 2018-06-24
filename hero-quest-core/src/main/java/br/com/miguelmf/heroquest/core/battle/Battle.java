@@ -97,13 +97,10 @@ public class Battle extends ValidatedEntity {
     }
 
 	private Combatant actOnOpponent(Action action) {
-		Combatant nextHeroToAct = Combatant.of(
-            action.act(
+		return Combatant.of(action.act(
                 current.getHero(),
                 opponent.getHero()),
                 opponent.getInitiative());
-
-		return nextHeroToAct;
 	}
 
 	private void updateTurns(Turn turn) {
