@@ -29,10 +29,12 @@ public class DomainEventPublisher {
     }
 
     @SuppressWarnings("rawtypes")
-    public void subscribe(DomainEventSubscriber subscriber) {
+    public DomainEventPublisher subscribe(DomainEventSubscriber subscriber) {
         subscribers.add(subscriber);
+        return this;
     }
 
+    @SuppressWarnings("unchecked")
     public <T> void publish(T event) {
         subscribers
             .stream()
@@ -40,9 +42,10 @@ public class DomainEventPublisher {
             .forEach(s -> s.handleEvent(event));
     }
 
-    private <T> Predicate<? super DomainEventSubscriber> isSubscribedTo(T event) {
-        return s -> s.subscribedToType() == (event.getClass());
-    }
+    @SuppressWarnings("rawtypes")
+	private <T> Predicate<? super DomainEventSubscriber> isSubscribedTo(T event) {
+		return subscriber -> subscriber.subscribedToType().equals(event.getClass());
+	}
 
     public Boolean hasSubscribers() {
         return subscribers.size() > 0;

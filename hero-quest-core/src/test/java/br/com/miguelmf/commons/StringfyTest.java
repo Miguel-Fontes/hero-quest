@@ -27,6 +27,7 @@ class StringfyTest {
         );
     }
 
+    @SuppressWarnings("unused")
     private static class TestSubject {
 
         private Long privateAttr;

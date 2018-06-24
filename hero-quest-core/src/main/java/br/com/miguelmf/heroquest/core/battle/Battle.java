@@ -10,8 +10,10 @@ import java.util.stream.Stream;
 
 import javax.validation.constraints.NotNull;
 
+import br.com.miguelmf.event.DomainEventPublisher;
 import br.com.miguelmf.heroquest.core.hero.Action;
 import br.com.miguelmf.heroquest.core.hero.Hero;
+import br.com.miguelmf.heroquest.events.BattleCompleteEvent;
 import br.com.miguelmf.validator.ValidatedEntity;
 
 public class Battle extends ValidatedEntity {
@@ -24,6 +26,7 @@ public class Battle extends ValidatedEntity {
 
     @NotNull
     private final List<Turn> turns;
+
 
     private Battle(Combatant current, Combatant opponent, List<Turn> turns) {
         this.current = current;
@@ -66,32 +69,54 @@ public class Battle extends ValidatedEntity {
     }
 
     public Battle nextTurn() {
-        return isComplete() ? complete() : computeNextTurn();
+        return isComplete() ? this : computeNextTurn();
     }
 
-    private Battle complete() {
-        return this;
-	}
+	private void publishBattleCompleteEvent(Battle battle) {
+		DomainEventPublisher
+            .instance()
+            .publish(BattleCompleteEvent.of(
+                battle.getWinner()
+                    .orElseThrow(IllegalStateException::new)));
+    }
 
 	private Battle computeNextTurn() {
         Action action = current.selectNextAction();
         Turn turn = Turn.of(current, opponent, action);
-        List<Turn> updatedTurns = new ArrayList<>();
-        updatedTurns.addAll(turns);
-        updatedTurns.add(turn);
+        updateTurns(turn);
+        Combatant nextHeroToAct = actOnOpponent(action);
+        Battle battle = this.of(nextHeroToAct, current, turns);
 
-        Combatant nextHeroToAct = Combatant.of(
+
+        publishTurnComputedEvent(action, nextHeroToAct);
+
+        if (battle.isComplete())
+            publishBattleCompleteEvent(battle);
+
+        return battle;
+    }
+
+	private Combatant actOnOpponent(Action action) {
+		Combatant nextHeroToAct = Combatant.of(
             action.act(
                 current.getHero(),
                 opponent.getHero()),
                 opponent.getInitiative());
 
-        System.out.println(String.format(
-            "Hero %s attacks oponnent with a %s, leaving him with %s hit points!",
-                current.getName(), action.getName(), nextHeroToAct.getHero().getHp()));
+		return nextHeroToAct;
+	}
 
-        return this.of(nextHeroToAct, current, turns);
-    }
+	private void updateTurns(Turn turn) {
+		List<Turn> updatedTurns = new ArrayList<>();
+        updatedTurns.addAll(turns);
+        updatedTurns.add(turn);
+	}
+
+	private void publishTurnComputedEvent(Action action, Combatant nextHeroToAct) {
+		DomainEventPublisher.instance()
+            .publish(String.format("Hero %s attacks oponnent with a %s, leaving him with %s hit points!",
+                current.getName(), action.getName(), nextHeroToAct.getHero().getHp()));
+	}
 
     public Optional<Hero> getWinner() {
         return isComplete()

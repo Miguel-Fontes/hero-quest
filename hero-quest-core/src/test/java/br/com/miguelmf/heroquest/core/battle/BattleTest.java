@@ -76,7 +76,4 @@ class BattleTest {
         assertFalse(battle.isComplete());
     }
 
-
-
-
 }
