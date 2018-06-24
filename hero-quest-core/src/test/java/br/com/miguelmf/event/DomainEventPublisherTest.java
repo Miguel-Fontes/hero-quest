@@ -3,7 +3,6 @@ package br.com.miguelmf.event;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,13 +12,9 @@ class DomainEventPublisherSubscribeTest {
 
     private static DomainEventPublisher publisher;
 
-    @BeforeAll
-    static void setup() {
-        publisher = DomainEventPublisher.instance();
-    }
-
     @BeforeEach
     void subscribe() {
+        publisher = DomainEventPublisher.newInstance();
         publisher.subscribe(StubDomainEventSubscriber.instance());
     }
 
@@ -32,7 +27,7 @@ class DomainEventPublisherSubscribeTest {
     @Test
     @DisplayName("should clear subscribers")
     void shouldClearSubscribers() {
-        DomainEventPublisher.instance().reset();
+        publisher.reset();
         assertFalse(publisher.hasSubscribers(), "DomainEventPublisher still has publishers!");
     }
 

@@ -9,7 +9,7 @@ public class DomainEventPublisher {
     private static DomainEventPublisher publisher;
 
     @SuppressWarnings("rawtypes")
-    private static final List<DomainEventSubscriber> subscribers = new ArrayList<>();
+    private List<DomainEventSubscriber> subscribers = new ArrayList<>();
 
     private DomainEventPublisher() {
         super();
@@ -24,7 +24,7 @@ public class DomainEventPublisher {
         return publisher;
     }
 
-    private static DomainEventPublisher newInstance() {
+    public static DomainEventPublisher newInstance() {
         return new DomainEventPublisher();
     }
 
@@ -41,7 +41,7 @@ public class DomainEventPublisher {
     }
 
     private <T> Predicate<? super DomainEventSubscriber> isSubscribedTo(T event) {
-        return s -> s.subscribedToType() == event.getClass();
+        return s -> s.subscribedToType() == (event.getClass());
     }
 
     public Boolean hasSubscribers() {
@@ -49,7 +49,7 @@ public class DomainEventPublisher {
     }
 
     public void reset() {
-        subscribers.clear();
+        subscribers = new ArrayList<>();
     }
 
 }

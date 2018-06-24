@@ -5,7 +5,6 @@ import java.util.function.Consumer;
 class MessageDomainEventSubscriber implements DomainEventSubscriber<String> {
 
     private final Consumer<String> consumer;
-    private static MessageDomainEventSubscriber subscriber;
     private static int messagesReceived = 0;
 
     private MessageDomainEventSubscriber(Consumer<String> consumer) {
@@ -13,16 +12,7 @@ class MessageDomainEventSubscriber implements DomainEventSubscriber<String> {
         this.consumer = consumer;
     }
 
-    public static MessageDomainEventSubscriber instance(Consumer<String> consumer) {
-        return subscriber != null ? subscriber : cache(newInstance(consumer));
-    }
-
-    private static MessageDomainEventSubscriber cache(MessageDomainEventSubscriber instance) {
-        subscriber = instance;
-        return subscriber;
-    }
-
-    private static MessageDomainEventSubscriber newInstance(Consumer<String> consumer) {
+    public static MessageDomainEventSubscriber newInstance(Consumer<String> consumer) {
         return new MessageDomainEventSubscriber(consumer);
     }
 
@@ -33,7 +23,7 @@ class MessageDomainEventSubscriber implements DomainEventSubscriber<String> {
     }
 
     @Override
-    public Class subscribedToType() {
+    public Class<String> subscribedToType() {
         return String.class;
     }
 
