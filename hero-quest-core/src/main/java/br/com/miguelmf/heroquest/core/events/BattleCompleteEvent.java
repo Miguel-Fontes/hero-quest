@@ -8,6 +8,7 @@ public class BattleCompleteEvent extends ValidatedEntity {
     private final Hero winner;
 
     private BattleCompleteEvent(Hero winner) {
+        super();
         this.winner = winner;
     }
 
