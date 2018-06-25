@@ -9,15 +9,24 @@
 # Future Features
 # - Force confirmation switch "-y"
 # - Read project information from pom.xml, and change package, group id and other parameters accordingly
+# - Parameters that constants for a user (my preferred default group id) should be externalized in some sort of configuration
 #
 # Miguel Fontes, 06/2018
 
+# Command Line Parameters
 declare ARTIFACT_ID=$1
 declare PACKAGE_MODIFIER=$2
 
+# Constants
 declare TRUE=0
 declare FALSE=1
 
+# External Parameters (maybe load from environment variables of a configuration file)
+declare DEFAULT_GROUP_ID="br.com.miguelmf"
+declare ARCHETYPE_ARTIFACT_ID="quickstart-junit5-archetype"
+declare ARCHETYPE_GROUP_ID="br.com.miguelmf"
+
+# Others
 declare USAGE_MESSAGE="
 USAGE: $(basename $0) <ARTIFACT_ID> <PACKAGE-MODIFIER>
 
@@ -44,19 +53,25 @@ isValid() {
 
 module() {
     mvn archetype:generate                               \
-      -DgroupId=br.com.miguelmf                          \
+      -DgroupId=$DEFAULT_GROUP_ID                        \
       -DartifactId="$ARTIFACT_ID"                        \
-      -Dpackage=br.com.miguelmf."$PACKAGE_MODIFIER"      \
-      -DarchetypeGroupId=br.com.miguelmf                 \
-      -DarchetypeArtifactId=quickstart-junit5-archetype  \
+      -Dpackage="$DEFAULT_PACKAGE"."$PACKAGE_MODIFIER"   \
+      -DarchetypeGroupId=$ARCHETYPE_GROUP_ID             \
+      -DarchetypeArtifactId=$ARCHETYPE_ARTIFACT_ID       \
       -DinteractiveMode=false
 }
 
 confirmation() {
-    echo "Execution Parameters: "
-    echo "    Artifact Id      : $ARTIFACT_ID"
-    echo "    Package Modifier : $PACKAGE_MODIFIER"
-    echo
+    echo "Maven Execution Parameters: "
+    echo "    Artifact Id           : $ARTIFACT_ID"
+    echo "    Group Id              : $DEFAULT_GROUP_ID"
+    echo "    Package               : $DEFAULT_GROUP_ID.$PACKAGE_MODIFIER"
+    echo "    Archetype Artifact Id : $ARCHETYPE_ARTIFACT_ID"
+    echo "    Archetype Group Id    : $ARCHETYPE_GROUP_ID"
+    echo ""
+    echo "Environment: "
+    echo "    Working Directory     : $(pwd)"
+    echo ""
 
     read -p "Confirm execution? (y/n) " -n 1 -r
     echo
