@@ -4,7 +4,6 @@ import br.com.miguelmf.api.HeroQuestApiImpl;
 import br.com.miguelmf.event.DomainEventPublisher;
 import br.com.miguelmf.heroquest.cli.subscribers.BattleCompletedSubscriber;
 import br.com.miguelmf.heroquest.cli.subscribers.BattleTurnComputedSubscriber;
-import br.com.miguelmf.heroquest.port.api.BattleDTO;
 import br.com.miguelmf.heroquest.port.api.ExecuteBattleRequest;
 import br.com.miguelmf.heroquest.port.api.HeroDTO;
 import br.com.miguelmf.heroquest.port.api.HeroQuestApi;
