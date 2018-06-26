@@ -129,4 +129,8 @@ public class Battle extends ValidatedEntity {
         return Arrays.asList(current, opponent);
     }
 
+    public List<Turn> getTurns() {
+        return Collections.unmodifiableList(turns);
+    }
+
 }

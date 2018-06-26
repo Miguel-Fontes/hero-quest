@@ -5,7 +5,7 @@ import javax.validation.constraints.NotNull;
 import br.com.miguelmf.heroquest.core.hero.Action;
 import br.com.miguelmf.validator.ValidatedEntity;
 
-class Turn extends ValidatedEntity {
+public class Turn extends ValidatedEntity {
 
     @NotNull
     private final Combatant hero;
