@@ -16,6 +16,7 @@
         <module>hero-quest-core</module>
         <module>hero-quest-ports</module>
         <module>hero-quest-api</module>
+    <module>hero-quest-event</module>
   </modules>
 
     <properties>

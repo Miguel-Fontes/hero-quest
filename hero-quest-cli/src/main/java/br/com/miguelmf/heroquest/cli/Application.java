@@ -1,6 +1,6 @@
 package br.com.miguelmf.heroquest.cli;
 
-import br.com.miguelmf.api.HeroQuestApiImpl;
+import br.com.miguelmf.heroquest.api.HeroQuestApiImpl;
 import br.com.miguelmf.event.DomainEventPublisher;
 import br.com.miguelmf.heroquest.cli.subscribers.BattleCompletedSubscriber;
 import br.com.miguelmf.heroquest.cli.subscribers.BattleTurnComputedSubscriber;

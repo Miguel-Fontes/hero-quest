@@ -1,4 +1,4 @@
-package br.com.miguelmf.api;
+package br.com.miguelmf.heroquest.api;
 
 import br.com.miguelmf.heroquest.core.actions.BasicAttackAction;
 import br.com.miguelmf.heroquest.core.battle.Battle;
