@@ -1,5 +1,6 @@
 package br.com.miguelmf.heroquest.port.api;
 
+import br.com.miguelmf.commons.Stringfy;
 import br.com.miguelmf.heroquest.core.hero.Hero;
 
 public class HeroDTO {
@@ -64,6 +65,11 @@ public class HeroDTO {
 
     public int getMaxHp() {
         return maxHp;
+    }
+
+    @Override
+    public String toString() {
+        return Stringfy.curly(this);
     }
 
 }

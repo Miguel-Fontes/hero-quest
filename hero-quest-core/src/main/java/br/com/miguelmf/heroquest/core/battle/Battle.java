@@ -87,7 +87,6 @@ public class Battle extends ValidatedEntity {
         Combatant nextHeroToAct = actOnOpponent(action);
         Battle battle = this.of(nextHeroToAct, current, turns);
 
-
         publishTurnComputedEvent(action, nextHeroToAct);
 
         if (battle.isComplete())
