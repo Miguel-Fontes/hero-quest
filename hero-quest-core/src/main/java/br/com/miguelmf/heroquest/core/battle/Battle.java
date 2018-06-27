@@ -14,6 +14,7 @@ import br.com.miguelmf.event.DomainEventPublisher;
 import br.com.miguelmf.heroquest.core.hero.Action;
 import br.com.miguelmf.heroquest.core.hero.Hero;
 import br.com.miguelmf.heroquest.core.events.BattleCompleteEvent;
+import br.com.miguelmf.heroquest.core.events.BattleTurnComputedEvent;
 import br.com.miguelmf.validator.ValidatedEntity;
 
 public class Battle extends ValidatedEntity {
@@ -26,7 +27,6 @@ public class Battle extends ValidatedEntity {
 
     @NotNull
     private final List<Turn> turns;
-
 
     private Battle(Combatant current, Combatant opponent, List<Turn> turns) {
         this.current = current;
@@ -44,10 +44,11 @@ public class Battle extends ValidatedEntity {
         return newInstance(combatants.get(0), combatants.get(1));
     }
 
-	private static void guardMaximumOfTwoCombatants(List<Combatant> combatants) {
-		if (combatants.size() > 2)
-            throw new IllegalArgumentException("Battle supports a maximum of 2 combatants, but was given " + combatants.size());
-	}
+    private static void guardMaximumOfTwoCombatants(List<Combatant> combatants) {
+        if (combatants.size() > 2)
+            throw new IllegalArgumentException(
+                    "Battle supports a maximum of 2 combatants, but was given " + combatants.size());
+    }
 
     public static Battle newInstance(Combatant one, Combatant two) {
         Combatant first = one.getInitiative() >= two.getInitiative() ? one : two;
@@ -57,11 +58,8 @@ public class Battle extends ValidatedEntity {
     }
 
     public static Battle of(Hero hero1, Hero hero2) {
-        return Stream.of(hero1, hero2)
-            .map(Combatant::from)
-            .collect(Collectors.collectingAndThen(
-                Collectors.toList(),
-                Battle::newInstance));
+        return Stream.of(hero1, hero2).map(Combatant::from)
+                .collect(Collectors.collectingAndThen(Collectors.toList(), Battle::newInstance));
     }
 
     public boolean isComplete() {
@@ -72,15 +70,12 @@ public class Battle extends ValidatedEntity {
         return isComplete() ? this : computeNextTurn();
     }
 
-	private void publishBattleCompleteEvent(Battle battle) {
-		DomainEventPublisher
-            .instance()
-            .publish(BattleCompleteEvent.of(
-                battle.getWinner()
-                    .orElseThrow(IllegalStateException::new)));
+    private void publishBattleCompleteEvent(Battle battle) {
+        DomainEventPublisher.instance()
+                .publish(BattleCompleteEvent.of(battle.getWinner().orElseThrow(IllegalStateException::new)));
     }
 
-	private Battle computeNextTurn() {
+    private Battle computeNextTurn() {
         Action action = current.selectNextAction();
         Turn turn = Turn.of(current, opponent, action);
         updateTurns(turn);
@@ -95,34 +90,30 @@ public class Battle extends ValidatedEntity {
         return battle;
     }
 
-	private Combatant actOnOpponent(Action action) {
-		return Combatant.of(action.act(
-                current.getHero(),
-                opponent.getHero()),
-                opponent.getInitiative());
-	}
-
-	private void updateTurns(Turn turn) {
-		List<Turn> updatedTurns = new ArrayList<>();
-        updatedTurns.addAll(turns);
-        updatedTurns.add(turn);
-	}
-
-	private void publishTurnComputedEvent(Action action, Combatant nextHeroToAct) {
-		DomainEventPublisher.instance()
-            .publish(String.format("Hero %s attacks oponnent with a %s, leaving him with %s hit points!",
-                current.getName(), action.getName(), nextHeroToAct.getHero().getHp()));
-	}
-
-    public Optional<Hero> getWinner() {
-        return isComplete()
-            ? Optional.of(getSurvivor())
-            : Optional.empty();
+    private Combatant actOnOpponent(Action action) {
+        return Combatant.of(action.act(current.getHero(), opponent.getHero()), opponent.getInitiative());
     }
 
-	private Hero getSurvivor() {
-		return current.isAlive() ? current.getHero() : opponent.getHero();
-	}
+    private void updateTurns(Turn turn) {
+        List<Turn> updatedTurns = new ArrayList<>();
+        updatedTurns.addAll(turns);
+        updatedTurns.add(turn);
+    }
+
+    private void publishTurnComputedEvent(Action action, Combatant nextHeroToAct) {
+        DomainEventPublisher.instance()
+                .publish(BattleTurnComputedEvent
+                        .of(String.format("Hero %s attacks oponnent with a %s, leaving him with %s hit points!",
+                                current.getName(), action.getName(), nextHeroToAct.getHero().getHp())));
+    }
+
+    public Optional<Hero> getWinner() {
+        return isComplete() ? Optional.of(getSurvivor()) : Optional.empty();
+    }
+
+    private Hero getSurvivor() {
+        return current.isAlive() ? current.getHero() : opponent.getHero();
+    }
 
     public List<Combatant> getCombatants() {
         return Arrays.asList(current, opponent);

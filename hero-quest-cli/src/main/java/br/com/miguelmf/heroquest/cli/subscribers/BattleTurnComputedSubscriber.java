@@ -1,8 +1,9 @@
 package br.com.miguelmf.heroquest.cli.subscribers;
 
 import br.com.miguelmf.event.DomainEventSubscriber;
+import br.com.miguelmf.heroquest.core.events.BattleTurnComputedEvent;
 
-public class BattleTurnComputedSubscriber implements DomainEventSubscriber<String> {
+public class BattleTurnComputedSubscriber implements DomainEventSubscriber<BattleTurnComputedEvent> {
 
     private BattleTurnComputedSubscriber() {
         super();
@@ -13,13 +14,13 @@ public class BattleTurnComputedSubscriber implements DomainEventSubscriber<Strin
     }
 
     @Override
-    public void handleEvent(String event) {
-        System.out.println(event);
+    public void handleEvent(BattleTurnComputedEvent event) {
+        System.out.println(event.getMessage());
     }
 
     @Override
-    public Class<String> subscribedToType() {
-        return String.class;
+    public Class<BattleTurnComputedEvent> subscribedToType() {
+        return BattleTurnComputedEvent.class;
     }
 
 }
