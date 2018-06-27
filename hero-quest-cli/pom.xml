@@ -54,5 +54,20 @@
             <artifactId>hero-quest-core</artifactId>
             <version>${project.version}</version>
         </dependency>
+        <dependency>
+            <groupId>br.com.miguelmf</groupId>
+            <artifactId>hero-quest-ports</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>br.com.miguelmf</groupId>
+            <artifactId>hero-quest-api</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>br.com.miguelmf</groupId>
+            <artifactId>hero-quest-event</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 </project>

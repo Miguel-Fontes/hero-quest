@@ -8,13 +8,13 @@
   </parent>
 
     <groupId>br.com.miguelmf</groupId>
-    <artifactId>hero-quest-ports</artifactId>
+    <artifactId>hero-quest-event</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>hero-quest-ports</name>
-    <url>https://github.com/Miguel-Fontes/hero-quest</url>
-    <description>Hero Quest Application Ports Definition</description>
+    <name>hero-quest-event</name>
+    <url>http://maven.apache.org</url>
+    <description>A implementation of the Events port</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -29,10 +29,6 @@
     </build>
 
     <dependencies>
-        <dependency>
-            <groupId>br.com.miguelmf</groupId>
-            <artifactId>hero-quest-core</artifactId>
-            <version>${project.version}</version>
-        </dependency>
+
     </dependencies>
 </project>

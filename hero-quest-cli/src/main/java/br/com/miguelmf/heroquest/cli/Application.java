@@ -1,52 +1,27 @@
 package br.com.miguelmf.heroquest.cli;
 
+import br.com.miguelmf.heroquest.api.HeroQuestApiImpl;
 import br.com.miguelmf.event.DomainEventPublisher;
 import br.com.miguelmf.heroquest.cli.subscribers.BattleCompletedSubscriber;
 import br.com.miguelmf.heroquest.cli.subscribers.BattleTurnComputedSubscriber;
-import br.com.miguelmf.heroquest.core.actions.BasicAttackAction;
-import br.com.miguelmf.heroquest.core.battle.Battle;
-import br.com.miguelmf.heroquest.core.hero.Hero;
-import br.com.miguelmf.heroquest.core.hero.HeroType;
-import br.com.miguelmf.heroquest.core.selectors.BasicAttackSelector;
+import br.com.miguelmf.heroquest.port.api.ExecuteBattleRequest;
+import br.com.miguelmf.heroquest.port.api.HeroDTO;
+import br.com.miguelmf.heroquest.port.api.HeroQuestApi;
 
 class Application {
 
-    public static void main(String[] args) throws InterruptedException {
-        Hero jack = new Hero.Builder()
-            .name("Jack of Trades")
-            .maxHp(100)
-            .strength(16)
-            .dexterity(10)
-            .intelligence(10)
-            .vitality(10)
-            .addAction(BasicAttackAction.newInstance())
-            .type(HeroType.NPC)
-            .selector(BasicAttackSelector.newInstance())
-            .build();
+    public static void main(String[] args) {
+        final HeroQuestApi api = new HeroQuestApiImpl();
 
-        Hero lothbrokson = new Hero.Builder()
-            .name("Lothbrokson")
-            .maxHp(100)
-            .strength(16)
-            .dexterity(10)
-            .intelligence(10)
-            .vitality(10)
-            .addAction(BasicAttackAction.newInstance())
-            .type(HeroType.NPC)
-            .selector(BasicAttackSelector.newInstance())
-            .build();
+        HeroDTO jack = HeroDTO.of("Jack of Trades", 10, 10, 10, 10, 100, 100);
+        HeroDTO lothbrokson = HeroDTO.of("Lothbrokson", 10, 10, 10, 10, 100, 100);
 
         DomainEventPublisher
             .instance()
             .subscribe(BattleCompletedSubscriber.instance())
             .subscribe(BattleTurnComputedSubscriber.instance());
 
-        Battle battle = Battle.of(jack, lothbrokson);
-
-        while(!battle.isComplete()) {
-            Thread.sleep(1000);
-            battle = battle.nextTurn();
-        }
+        api.executeBattle(ExecuteBattleRequest.of(jack, lothbrokson));
     }
 
 }

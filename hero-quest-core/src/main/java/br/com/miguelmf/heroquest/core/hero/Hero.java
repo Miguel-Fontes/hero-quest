@@ -101,6 +101,10 @@ public class Hero extends ValidatedEntity {
         return hp;
     }
 
+    public int getMaxHp() {
+        return maxHp;
+    }
+
     @Override
     public String toString() {
         return Stringfy.curly(this);

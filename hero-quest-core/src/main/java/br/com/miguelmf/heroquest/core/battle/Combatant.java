@@ -3,7 +3,7 @@ package br.com.miguelmf.heroquest.core.battle;
 import br.com.miguelmf.heroquest.core.hero.Action;
 import br.com.miguelmf.heroquest.core.hero.Hero;
 
-class Combatant {
+public class Combatant {
 
     private final Hero hero;
     private final int initiative;
