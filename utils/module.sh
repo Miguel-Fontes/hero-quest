@@ -9,13 +9,15 @@
 #            - Constans are now read-only (added -r switch)
 # Version 2: - Checks if the module being created is a Parent or Child module, switching archetypes
 #              accordingly
+# Version 3: - Archetype parameters externalized as environment variables, making the script way more flexible.
+#            - This version marks the point where it is usable by other developers
 #
 # Future Features
-# - [ ] User can pass extra maven parameters
-# - [ ] Force confirmation switch "-y"
-# - [ ] Add option to enter the group id manually, if it is desired "-g"
-# - [ ] For child modules, read project information from project (pom.xml and others), and change package, group id and other parameters accordingly
-# - [ ] Parameters that are constants for a user (my preferred default group id) should be externalized in some sort of configuration
+# - User can pass extra maven parameters
+# - Force confirmation switch "-y"
+# - Add option to enter the group id manually, if it is desired "-g"
+# - For child modules, read project information from project (pom.xml and others), and change package, group id and other parameters accordingly
+# - Make it possible to override external parameters passed as environment variables with command line arguments
 #
 # Miguel Fontes, 06/2018
 
@@ -27,19 +29,24 @@ declare -r PACKAGE_MODIFIER=$2
 declare -r TRUE=0
 declare -r FALSE=1
 
-# External Parameters (maybe load from environment variables of a configuration file)
-declare -r PARENT_ARCHETYPE_ARTIFACT_ID="java-tooling-template-archetype"
-declare -r PARENT_ARCHETYPE_GROUP_ID="br.com.miguelmf"
-declare -r CHILD_ARCHETYPE_ARTIFACT_ID="quickstart-junit5-archetype"
-declare -r CHILD_ARCHETYPE_GROUP_ID="br.com.miguelmf"
-declare -r DEFAULT_GROUP_ID="br.com.miguelmf"
-
 # Execution Parameters, defined on runtime
 declare ARCHETYPE_ARTIFACT_ID
 declare ARCHETYPE_GROUP_ID
 declare PROJECT_GROUP_ID
 
-# Others
+# Messages
+declare -r EXTERNAL_CONFIGURATION_ERROR_MESSAGE="
+Have you configured the environment variables correctly?
+You must configure the following environment variables on your system, or pass those valius by argument:
+
+  PARENT_ARCHETYPE_ARTIFACT_ID : a default archetype used when building a parent module
+  PARENT_ARCHETYPE_GROUP_ID    : the default parent module archetype group id
+  CHILD_ARCHETYPE_ARTIFACT_ID  : the default archetype used when creating a child module
+  CHILD_ARCHETYPE_GROUP_ID     : the child module archetype group id
+  DEFAULT_GROUP_ID             : a default group id, used when no group id is defined by arguments
+"
+
+
 declare -r USAGE_MESSAGE="
 USAGE: $(basename $0) <ARTIFACT_ID> <PACKAGE-MODIFIER>
 
@@ -50,6 +57,8 @@ USAGE: $(basename $0) <ARTIFACT_ID> <PACKAGE-MODIFIER>
 
 isValid() {
     isValid="$TRUE"
+    externalConfigurationErrorOcurred="$FALSE"
+
 
     if [ -z "$ARTIFACT_ID" ]; then
         echo "ERROR: Artifact id not supplied"
@@ -61,19 +70,52 @@ isValid() {
         isValid="$FALSE"
     fi
 
+    if [ -z "$PARENT_ARCHETYPE_ARTIFACT_ID" ]; then
+        echo "ERROR: Parent archetype id not supplied. $ENVIRONMENT_VARIABLES_MESSAGE"
+        externalConfigurationErrorOcurred="$TRUE"
+        isValid="$FALSE"
+    fi
+
+    if [ -z "$PARENT_ARCHETYPE_GROUP_ID" ]; then
+        echo "ERROR: Parent archetype group id not supplied. $ENVIRONMENT_VARIABLES_MESSAGE"
+        externalConfigurationErrorOcurred="$TRUE"
+        isValid="$FALSE"
+    fi
+
+    if [ -z "$CHILD_ARCHETYPE_ARTIFACT_ID" ]; then
+        echo "ERROR: Child archetype id not supplied. $ENVIRONMENT_VARIABLES_MESSAGE"
+        externalConfigurationErrorOcurred="$TRUE"
+        isValid="$FALSE"
+    fi
+
+    if [ -z "$CHILD_ARCHETYPE_GROUP_ID" ]; then
+        echo "ERROR: Child archetype group id not supplied. $ENVIRONMENT_VARIABLES_MESSAGE"
+        externalConfigurationErrorOcurred="$TRUE"
+        isValid="$FALSE"
+    fi
+
+    if [ -z "$DEFAULT_GROUP_ID" ]; then
+        echo "ERROR: Default group id not supplied. $ENVIRONMENT_VARIABLES_MESSAGE"
+        externalConfigurationErrorOcurred="$TRUE"
+        isValid="$FALSE"
+    fi
+
+    if [ "$externalConfigurationErrorOcurred" -eq $TRUE ]; then echo "$EXTERNAL_CONFIGURATION_ERROR_MESSAGE"; fi
+
     return "$isValid"
 }
 
 isParentModule() {
-    isTopLevel="$TRUE"
+    isParent="$TRUE"
 
+    # if there's a pom.xml on the current working directory, this is a child module.
     if [ -e pom.xml ]; then
-        isTopLevel="$FALSE"
+        isParent="$FALSE"
     else
-        isTopLevel="$TRUE"
+        isParent="$TRUE"
     fi
 
-    return "$isTopLevel"
+    return "$isParent"
 }
 
 fechGroupIdFromPom() {
