@@ -139,7 +139,7 @@ module() {
     mvn archetype:generate                               \
       -DgroupId=$PROJECT_GROUP_ID                        \
       -DartifactId="$ARTIFACT_ID"                        \
-      -Dpackage="$DEFAULT_PACKAGE"."$PACKAGE_MODIFIER"   \
+      -Dpackage="$PROJECT_GROUP_ID"."$PACKAGE_MODIFIER"   \
       -DarchetypeGroupId=$ARCHETYPE_GROUP_ID             \
       -DarchetypeArtifactId=$ARCHETYPE_ARTIFACT_ID       \
       -DinteractiveMode=false
