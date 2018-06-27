@@ -10,7 +10,7 @@ import br.com.miguelmf.heroquest.port.api.HeroQuestApi;
 
 class Application {
 
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         final HeroQuestApi api = new HeroQuestApiImpl();
 
         HeroDTO jack = HeroDTO.of("Jack of Trades", 10, 10, 10, 10, 100, 100);

@@ -4,6 +4,9 @@ import br.com.miguelmf.heroquest.core.battle.Turn;
 
 public class TurnDTO {
 
+    private TurnDTO() {
+    }
+
     public static TurnDTO from(Turn turn) {
         return new TurnDTO();
     }
