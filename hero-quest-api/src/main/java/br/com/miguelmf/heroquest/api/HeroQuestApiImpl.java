@@ -34,9 +34,9 @@ public class HeroQuestApiImpl implements HeroQuestApi {
             .dexterity(hero.getDexterity())
             .intelligence(hero.getIntelligence())
             .vitality(hero.getVitality())
-            .addAction(BasicAttackAction.newInstance())
+            .addAction(BasicAttackAction.instance())
             .type(HeroType.NPC)
-            .selector(BasicAttackSelector.newInstance())
+            .selector(BasicAttackSelector.instance())
 			.build();
 	}
 

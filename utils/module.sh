@@ -13,7 +13,6 @@
 #            - This version marks the point where it is usable by other developers
 #
 # Future Features
-# - User can pass extra maven parameters
 # - Force confirmation switch "-y"
 # - Add option to enter the group id manually, if it is desired "-g"
 # - For child modules, read project information from project (pom.xml and others), and change package, group id and other parameters accordingly
@@ -37,7 +36,7 @@ declare PROJECT_GROUP_ID
 # Messages
 declare -r EXTERNAL_CONFIGURATION_ERROR_MESSAGE="
 Have you configured the environment variables correctly?
-You must configure the following environment variables on your system, or pass those valius by argument:
+You must configure the following environment variables on your system, or pass those values by argument:
 
   PARENT_ARCHETYPE_ARTIFACT_ID : a default archetype used when building a parent module
   PARENT_ARCHETYPE_GROUP_ID    : the default parent module archetype group id
@@ -109,11 +108,7 @@ isParentModule() {
     isParent="$TRUE"
 
     # if there's a pom.xml on the current working directory, this is a child module.
-    if [ -e pom.xml ]; then
-        isParent="$FALSE"
-    else
-        isParent="$TRUE"
-    fi
+    test -e pom.xml && isParent="$FALSE" ||
 
     return "$isParent"
 }
@@ -139,7 +134,7 @@ module() {
     mvn archetype:generate                               \
       -DgroupId=$PROJECT_GROUP_ID                        \
       -DartifactId="$ARTIFACT_ID"                        \
-      -Dpackage="$DEFAULT_PACKAGE"."$PACKAGE_MODIFIER"   \
+      -Dpackage="$PROJECT_GROUP_ID"."$PACKAGE_MODIFIER"  \
       -DarchetypeGroupId=$ARCHETYPE_GROUP_ID             \
       -DarchetypeArtifactId=$ARCHETYPE_ARTIFACT_ID       \
       -DinteractiveMode=false
