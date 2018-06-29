@@ -93,6 +93,13 @@ public class Battle extends ValidatedEntity {
         return battle;
     }
 
+    public Battle evaluate() {
+        return Stream.iterate(this, Battle::nextTurn)
+            .filter(Battle::isComplete)
+            .findFirst()
+            .orElseThrow(IllegalStateException::new);
+    }
+
     private Combatant actOnOpponent(Action action) {
         return Combatant.of(action.act(current.getHero(), opponent.getHero()), opponent.getInitiative());
     }
