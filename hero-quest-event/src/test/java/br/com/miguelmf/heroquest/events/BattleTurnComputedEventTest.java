@@ -1,4 +1,4 @@
-package br.com.miguelmf.heroquest.core.events;
+package br.com.miguelmf.heroquest.events;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

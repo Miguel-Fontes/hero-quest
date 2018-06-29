@@ -1,7 +1,7 @@
 package br.com.miguelmf.heroquest.cli.subscribers;
 
 import br.com.miguelmf.event.DomainEventSubscriber;
-import br.com.miguelmf.heroquest.core.events.BattleCompleteEvent;
+import br.com.miguelmf.heroquest.events.BattleCompleteEvent;
 
 public class BattleCompletedSubscriber implements DomainEventSubscriber<BattleCompleteEvent> {
 
@@ -15,7 +15,7 @@ public class BattleCompletedSubscriber implements DomainEventSubscriber<BattleCo
 
 	@Override
 	public void handleEvent(BattleCompleteEvent event) {
-        System.out.println("The winner is " + event.getWinner().getName() + "!");
+        System.out.println("The winner is " + event.getWinner() + "!");
 	}
 
 	@Override
