@@ -76,4 +76,14 @@ class BattleTest {
         assertFalse(battle.isComplete());
     }
 
+    @Test
+    @DisplayName("should evaluate a battle until it's end")
+    void shouldEvaluateBattle() {
+        Battle evaluatedBattle = battle.evaluate();
+
+        assertTrue(evaluatedBattle.isComplete());
+        assertTrue(evaluatedBattle.getWinner().isPresent());
+    }
+
+
 }

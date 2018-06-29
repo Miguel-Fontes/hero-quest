@@ -1,7 +1,7 @@
 package br.com.miguelmf.heroquest.cli.subscribers;
 
 import br.com.miguelmf.event.DomainEventSubscriber;
-import br.com.miguelmf.heroquest.core.events.BattleTurnComputedEvent;
+import br.com.miguelmf.heroquest.events.BattleTurnComputedEvent;
 
 public class BattleTurnComputedSubscriber implements DomainEventSubscriber<BattleTurnComputedEvent> {
 

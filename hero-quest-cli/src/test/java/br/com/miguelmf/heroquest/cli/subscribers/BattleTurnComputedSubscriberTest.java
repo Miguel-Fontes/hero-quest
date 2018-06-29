@@ -6,7 +6,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import br.com.miguelmf.heroquest.core.events.BattleTurnComputedEvent;
+import br.com.miguelmf.heroquest.events.BattleTurnComputedEvent;
 
 @DisplayName("BattleTurnComputed")
 class BattleTurnComputedTest {

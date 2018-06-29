@@ -19,11 +19,7 @@ public class HeroQuestApiImpl implements HeroQuestApi {
 
 		Battle battle = Battle.of(jack, lothbrokson);
 
-		while(!battle.isComplete()) {
-			battle = battle.nextTurn();
-		}
-
-		return BattleDTO.from(battle);
+		return BattleDTO.from(battle.evaluate());
 	}
 
 	private Hero toHero(HeroDTO hero) {

@@ -11,10 +11,10 @@ import java.util.stream.Stream;
 import javax.validation.constraints.NotNull;
 
 import br.com.miguelmf.event.DomainEventPublisher;
-import br.com.miguelmf.heroquest.core.events.BattleCompleteEvent;
-import br.com.miguelmf.heroquest.core.events.BattleTurnComputedEvent;
 import br.com.miguelmf.heroquest.core.hero.Action;
 import br.com.miguelmf.heroquest.core.hero.Hero;
+import br.com.miguelmf.heroquest.events.BattleCompleteEvent;
+import br.com.miguelmf.heroquest.events.BattleTurnComputedEvent;
 import br.com.miguelmf.validator.ValidatedEntity;
 
 public class Battle extends ValidatedEntity {
@@ -72,7 +72,10 @@ public class Battle extends ValidatedEntity {
 
     private void publishBattleCompleteEvent(Battle battle) {
         DomainEventPublisher.instance()
-                .publish(BattleCompleteEvent.of(battle.getWinner().orElseThrow(IllegalStateException::new)));
+                .publish(BattleCompleteEvent.of(
+                    battle.getWinner()
+                        .map(Hero::getName)
+                        .orElseThrow(IllegalStateException::new)));
     }
 
     private Battle computeNextTurn() {
@@ -88,6 +91,13 @@ public class Battle extends ValidatedEntity {
             publishBattleCompleteEvent(battle);
 
         return battle;
+    }
+
+    public Battle evaluate() {
+        return Stream.iterate(this, Battle::nextTurn)
+            .filter(Battle::isComplete)
+            .findFirst()
+            .orElseThrow(IllegalStateException::new);
     }
 
     private Combatant actOnOpponent(Action action) {
