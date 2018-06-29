@@ -31,8 +31,8 @@ class HeroQuestTest {
 
 	private Hero buildRandomHero() {
         return HeroTestFactory.newInstance().getBuilder()
-            .addAction(BasicAttackAction.newInstance())
-            .selector(BasicAttackSelector.newInstance())
+            .addAction(BasicAttackAction.instance())
+            .selector(BasicAttackSelector.instance())
             .build();
     }
 

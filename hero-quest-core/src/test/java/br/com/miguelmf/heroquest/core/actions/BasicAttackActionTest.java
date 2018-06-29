@@ -14,7 +14,7 @@ class BasicAttackActionTest {
     @RepeatedTest(10)
     @DisplayName("a BasicAttack should damage it's target")
     void shouldHitWithABasicAttack() {
-        BasicAttackAction basicAttack = BasicAttackAction.newInstance();
+        BasicAttackAction basicAttack = BasicAttackAction.instance();
         Hero hero = getHeroWith100Hp();
         Hero target = getHeroWith100Hp();
 

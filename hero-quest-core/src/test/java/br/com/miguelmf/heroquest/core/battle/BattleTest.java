@@ -25,8 +25,8 @@ class BattleTest {
     @BeforeAll
     static void setup() {
         battle = Battle.of(
-            HeroTestFactory.newInstance().getBuilder().selector(BasicAttackSelector.newInstance()).build(),
-            HeroTestFactory.newInstance().getBuilder().selector(BasicAttackSelector.newInstance()).build()
+            HeroTestFactory.newInstance().getBuilder().selector(BasicAttackSelector.instance()).build(),
+            HeroTestFactory.newInstance().getBuilder().selector(BasicAttackSelector.instance()).build()
         );
     }
 

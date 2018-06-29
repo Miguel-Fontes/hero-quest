@@ -7,16 +7,30 @@ import br.com.miguelmf.heroquest.core.hero.Selector;
 
 public class BasicAttackSelector implements Selector {
 
+    private static BasicAttackSelector selector;
+
     private BasicAttackSelector() {
     }
 
-    public static BasicAttackSelector newInstance() {
+    public static BasicAttackSelector instance() {
+        return selector != null
+            ? selector
+            : cache(newInstance());
+    }
+
+    private static BasicAttackSelector cache(BasicAttackSelector instance) {
+        selector = instance;
+
+        return selector;
+	}
+
+	private static BasicAttackSelector newInstance() {
         return new BasicAttackSelector();
     }
 
     @Override
     public Action select(Hero hero) {
-        return BasicAttackAction.newInstance();
+        return BasicAttackAction.instance();
     }
 
 }

@@ -12,7 +12,7 @@ import br.com.miguelmf.heroquest.core.hero.HeroTestFactory;
 @DisplayName("Basic Attack Selector")
 class BasicAttackSelectorTest {
 
-    private static BasicAttackSelector selector = BasicAttackSelector.newInstance();
+    private static BasicAttackSelector selector = BasicAttackSelector.instance();
 
     @RepeatedTest(10)
     @DisplayName("should always select a basic attack")

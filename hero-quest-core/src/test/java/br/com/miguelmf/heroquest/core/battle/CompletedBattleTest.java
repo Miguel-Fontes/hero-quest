@@ -17,7 +17,7 @@ class CompletedBattleTest {
 
     @BeforeAll
     static void setup() {
-        winner = HeroTestFactory.newInstance().getBuilder().selector(BasicAttackSelector.newInstance()).build();
+        winner = HeroTestFactory.newInstance().getBuilder().selector(BasicAttackSelector.instance()).build();
         Hero loser = HeroTestFactory.newInstance().getBuilder()
             .hp(1)
             .build()
